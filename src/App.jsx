@@ -20,6 +20,15 @@ const cvList = [
     title: 'Echologyx - Mid Level Frontend Engineer',
     description: 'Tailored for Echologyx Ltd.',
   },
+  {
+    id: 'fullstack',
+    file: '/cv-fullstack.html',
+    badge: 'Full Stack',
+    badgeColor: '#6a1b9a',
+    badgeBg: '#f3e5f5',
+    title: 'Full Stack Developer CV',
+    description: 'Frontend + backend, APIs, databases.',
+  },
 ]
 
 function App() {
