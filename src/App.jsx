@@ -1,45 +1,54 @@
-import { useState } from 'react'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
 
 const cvList = [
   {
-    id: 'general',
-    file: '/cv-general.html',
-    badge: 'General',
-    badgeColor: '#2e7d32',
-    badgeBg: '#e8f5e9',
-    title: 'General Frontend Developer CV',
-    description: 'Standard CV for general frontend positions.',
+    id: "general",
+    file: "/cv-general.html",
+    badge: "General",
+    badgeColor: "#2e7d32",
+    badgeBg: "#e8f5e9",
+    title: "General Frontend Developer CV",
+    description: "Standard CV for general frontend positions.",
   },
   {
-    id: 'echologyx',
-    file: '/cv-echologyx.html',
-    badge: 'Tailored',
-    badgeColor: '#1565c0',
-    badgeBg: '#e3f2fd',
-    title: 'Echologyx - Mid Level Frontend Engineer',
-    description: 'Tailored for Echologyx Ltd.',
+    id: "echologyx",
+    file: "/cv-frontend-echologyx.html",
+    badge: ["Frontend", "Echologyx"],
+    badgeColor: "#1565c0",
+    badgeBg: "#e3f2fd",
+    title: "Mid Level Frontend Engineer",
+    description: "Tailored for Echologyx Ltd.",
   },
   {
-    id: 'fullstack',
-    file: '/cv-fullstack.html',
-    badge: 'Full Stack',
-    badgeColor: '#6a1b9a',
-    badgeBg: '#f3e5f5',
-    title: 'Full Stack Developer CV',
-    description: 'Frontend + backend, APIs, databases.',
+    id: "fullstack",
+    file: "/cv-fullstack-fahad.html",
+    badge: ["Full Stack", "Fahad"],
+    badgeColor: "#6a1b9a",
+    badgeBg: "#f3e5f5",
+    title: "Full Stack Developer CV",
+    description: "Frontend + backend, APIs, databases.",
   },
-]
+  {
+    id: "frontend-pengroup",
+    file: "/cv-frontend-pengroup.html",
+    badge: ["Frontend", "PEN Group"],
+    badgeColor: "#6a1b9a",
+    badgeBg: "#f3e5f5",
+    title: "Frontends Developer CV",
+    description: "Frontend.",
+  },
+];
 
 function App() {
-  const [selected, setSelected] = useState(null)
+  const [selected, setSelected] = useState(null);
 
   const handleDownload = (file) => {
-    const printWindow = window.open(file, '_blank')
-    printWindow.addEventListener('load', () => {
-      setTimeout(() => printWindow.print(), 500)
-    })
-  }
+    const printWindow = window.open(file, "_blank");
+    printWindow.addEventListener("load", () => {
+      setTimeout(() => printWindow.print(), 500);
+    });
+  };
 
   return (
     <div className="layout">
@@ -54,25 +63,50 @@ function App() {
           {cvList.map((cv) => (
             <div
               key={cv.id}
-              className={`cv-item ${selected?.id === cv.id ? 'active' : ''}`}
+              className={`cv-item ${selected?.id === cv.id ? "active" : ""}`}
               onClick={() => setSelected(cv)}
             >
-              <span
-                className="cv-badge"
-                style={{ background: cv.badgeBg, color: cv.badgeColor }}
-              >
-                {cv.badge}
-              </span>
+              {typeof cv.badge === "string" ? (
+                <span
+                  className="cv-badge"
+                  style={{ background: cv.badgeBg, color: cv.badgeColor }}
+                >
+                  {cv.badge}
+                </span>
+              ) : Array.isArray(cv.badge) ? (
+                <>
+                  <span
+                    className="cv-badge"
+                    style={{ background: cv.badgeBg, color: cv.badgeColor }}
+                  >
+                    {cv.badge[0]}
+                  </span>
+                  {cv.badge[1] ? (
+                    <span
+                      className="cv-badge"
+                      style={{ background: cv.badgeBg, color: cv.badgeColor }}
+                    >
+                      {cv.badge[1]}
+                    </span>
+                  ) : null}
+                </>
+              ) : null}
+
               <h3>{cv.title}</h3>
               <p>{cv.description}</p>
               <button
                 className="btn btn-download"
                 onClick={(e) => {
-                  e.stopPropagation()
-                  handleDownload(cv.file)
+                  e.stopPropagation();
+                  handleDownload(cv.file);
                 }}
               >
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="14"
+                  height="14"
+                  fill="currentColor"
+                >
                   <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
                 </svg>
                 Download PDF
@@ -92,13 +126,22 @@ function App() {
                 className="btn btn-download"
                 onClick={() => handleDownload(selected.file)}
               >
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="14"
+                  height="14"
+                  fill="currentColor"
+                >
                   <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
                 </svg>
                 Download PDF
               </button>
             </div>
-            <iframe className="preview-frame" src={selected.file} title="CV Preview" />
+            <iframe
+              className="preview-frame"
+              src={selected.file}
+              title="CV Preview"
+            />
           </>
         ) : (
           <div className="preview-empty">
@@ -110,7 +153,7 @@ function App() {
         )}
       </main>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
